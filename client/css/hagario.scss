@@ -1,0 +1,244 @@
+@import 'theme';
+
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-image: linear-gradient($primary, darken($primary, 10%));
+    font-family: $font;
+    color: $text;
+    overflow: hidden;
+}
+
+#offline-ui {
+    position: fixed;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    justify-content:  center;
+    align-items: center;
+    transition: opacity .3s ease-in-out;
+
+    &.hidden {
+        pointer-events: none;
+        opacity: 0;
+    }
+}
+
+#authentication-form {
+    position: relative;
+    display: flex;
+    min-width: 5rem;
+    min-height: 1rem;
+    padding: 1rem;
+    background-color: rgba($light, .2);
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.ui-input-wrapper {
+    position: relative;
+
+    &:has(.ui-input:focus)::after {
+        max-width: 100%;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 1px;
+        background-color: $secondary;
+        box-shadow: 0 5px 5px rgba($secondary, .8);
+        max-width: 0;
+        transition: max-width .2s ease-in-out;
+    }
+}
+
+#server-error {
+    position: relative;
+    display: none;
+    color: red;
+    margin-bottom: -.5rem;
+    align-self: center;
+
+    &.show {
+        display: flex;
+    }
+}
+
+.ui-input[type="text"],
+.ui-input[type="password"],
+.ui-input[type="email"] {
+    position: relative;
+    border: none;
+    padding: .7rem .5rem;
+    background-color: rgba($dark, .6);
+    outline: none;
+    color: rgba($light, .5);
+    font-size: 16px;
+    text-align: center;
+    min-width: clamp(25rem, 40vw, 30rem);
+    transition: color .2s ease-in-out;
+
+    &::placeholder {
+        color: rgba($light, .5);
+    }
+
+    &:focus {
+        outline: none;
+        color: lighten($secondary, 20%);
+    }
+}
+
+.btn-join {
+    background-image: linear-gradient($join-color, darken($join-color, 20%));
+    border: none;
+    padding: .5rem;
+    color: rgba($text, .8);
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 2px solid darken($join-color, 30%);
+    cursor: pointer;
+    outline: none;
+    font-size: 18px;
+    transition: filter .1s ease;
+
+    &:hover {
+        filter: brightness(85%);
+    }
+
+    &:active {
+        filter: brightness(75%);
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+#online-content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+
+    &.show {
+        pointer-events: all;
+        opacity: 1;
+    }
+}
+
+.online-ui {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+
+    #st-username {
+        position: absolute;
+        top: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 24px;
+        font-family: $font;
+        text-shadow: 0 0 9px lighten($secondary, 20%);
+    }
+}
+
+#online-background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+}
+
+#online-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+}
+
+#online-debug {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    width: max-content;
+    max-width: calc(100vw - 2rem);
+    word-break: break-all;
+    padding: .5rem;
+    background-color: rgba($dark, .8);
+    color: $text;
+}
+
+#leaderboard {
+    position: absolute;
+    display: flex;
+    list-style-type: none;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    top: 1rem;
+    right: 1rem;
+    border-radius: 8pt;
+    overflow: hidden;
+
+    & > li {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &:first-of-type {
+            background-color: rgba($dark, .8);
+            color: rgb(255, 196, 0);
+            text-transform: uppercase;
+            justify-content: center;
+        }
+
+        &:nth-child(2), &:first-of-type {
+            padding-top: .7rem;
+        }
+
+        background-color: rgba($dark, .6);
+        padding: 0 .8rem .7rem .8rem;
+        color: rgba($text, .8);
+        overflow: hidden;
+        max-width: 15rem;
+        text-overflow: ellipsis;
+
+        span {
+            position: relative;
+            display: flex;
+            flex: 1 1 auto;
+            justify-content: flex-end;
+            color: rgba(192, 227, 76, .7);
+        }
+
+        label {
+            position: relative;
+            flex: 1 1 auto;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            max-width: 12rem;
+        }
+    }
+}
